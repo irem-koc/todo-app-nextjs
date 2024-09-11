@@ -1,7 +1,6 @@
 "use client";
 import { useRootContext } from "@/context/root";
 import { FormEvent } from "react";
-import styles from "./addTodo.module.css";
 
 const AddTodo = () => {
   const { addTodo } = useRootContext();
@@ -16,7 +15,7 @@ const AddTodo = () => {
     event.currentTarget.reset();
   };
   return (
-    <form onSubmit={handleSubmit} className={styles.mainContainer}>
+    <form onSubmit={handleSubmit}>
       <input type="text" name="name" placeholder="Enter todo.." />
       <button type="submit">Add</button>
     </form>
