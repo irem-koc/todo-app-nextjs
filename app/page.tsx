@@ -8,10 +8,17 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <AddTodo />
+      <div className={styles.todoContainer}></div>
       {todos.map((todo) => (
         <div key={todo.id} className={styles.todo}>
-          <input type="checkbox" defaultChecked={todo.completed} />
-          <p>{todo.todo}</p>
+          <div>
+            <input type="checkbox" defaultChecked={todo.completed} />
+            <span>{todo.todo}</span>
+          </div>
+          <div className={styles.operations}>
+            <i className="fa-solid fa-pen-to-square"></i>
+            <i className="fa-regular fa-trash-can"></i>
+          </div>
         </div>
       ))}
     </div>
