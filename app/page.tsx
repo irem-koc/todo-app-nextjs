@@ -4,7 +4,10 @@ import { useRootContext } from "@/context/root";
 import styles from "./page.module.css";
 
 export default function Home() {
-  const { todos } = useRootContext();
+  const { todos, deleteTodo } = useRootContext();
+  const handleDelete = (id: string) => {
+    deleteTodo(id);
+  };
   return (
     <div className={styles.page}>
       <AddTodo />
@@ -16,8 +19,15 @@ export default function Home() {
             <span>{todo.todo}</span>
           </div>
           <div className={styles.operations}>
-            <i className="fa-solid fa-pen-to-square"></i>
-            <i className="fa-regular fa-trash-can"></i>
+            <span className={styles.hoverPointer}>
+              <i className="fa-solid fa-pen-to-square"></i>
+            </span>
+            <span
+              className={styles.hoverPointer}
+              onClick={() => handleDelete(todo.id)}
+            >
+              <i className="fa-regular fa-trash-can"></i>
+            </span>
           </div>
         </div>
       ))}
