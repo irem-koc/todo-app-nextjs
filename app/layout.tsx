@@ -27,6 +27,12 @@ export default function RootLayout({
   return (
     <RootContextProvider>
       <html lang="en">
+        <head>
+          <script
+            src="https://kit.fontawesome.com/ef94667f4f.js"
+            async
+          ></script>
+        </head>
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
           {children}
         </body>
