@@ -7,6 +7,7 @@ interface Context {
   todos: Todos;
   editTodo: (todo: Todo) => void;
   addTodo: (todo: Todo) => void;
+  deleteTodo: (id: string) => void;
 }
 
 interface Props {
@@ -17,6 +18,7 @@ const initialState: Context = {
   todos: [],
   editTodo: () => {},
   addTodo: () => {},
+  deleteTodo: () => {},
 };
 
 export const RootContext = createContext<Context>(initialState);
@@ -31,6 +33,9 @@ export default function RootContextProvider({ children }: Props) {
   const editTodo = (editTodo: Todo) => {
     setTodos(todos.map((todo) => (todo.id === editTodo.id ? editTodo : todo)));
   };
-  const values = { todos, addTodo, editTodo };
+  const deleteTodo = (id: string) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+  const values = { todos, addTodo, editTodo, deleteTodo };
   return <RootContext.Provider value={values}>{children}</RootContext.Provider>;
 }
