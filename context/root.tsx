@@ -5,9 +5,10 @@ import { createContext, ReactNode, useContext, useState } from "react";
 
 interface Context {
   todos: Todos;
-  editTodo: (todo: Todo) => void;
+  editTodo: (id: string, todoChanged: string) => void;
   addTodo: (todo: Todo) => void;
   deleteTodo: (id: string) => void;
+  completeTodo: (id: string) => void;
 }
 
 interface Props {
@@ -19,6 +20,7 @@ const initialState: Context = {
   editTodo: () => {},
   addTodo: () => {},
   deleteTodo: () => {},
+  completeTodo: () => {},
 };
 
 export const RootContext = createContext<Context>(initialState);
@@ -30,12 +32,23 @@ export default function RootContextProvider({ children }: Props) {
   const addTodo = (todo: Todo) => {
     setTodos([...todos, todo]);
   };
-  const editTodo = (editTodo: Todo) => {
-    setTodos(todos.map((todo) => (todo.id === editTodo.id ? editTodo : todo)));
+  const editTodo = (id: string, todoChanged: string) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, todo: todoChanged } : todo
+      )
+    );
   };
   const deleteTodo = (id: string) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
-  const values = { todos, addTodo, editTodo, deleteTodo };
+  const completeTodo = (id: string) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+  const values = { todos, addTodo, editTodo, deleteTodo, completeTodo };
   return <RootContext.Provider value={values}>{children}</RootContext.Provider>;
 }
